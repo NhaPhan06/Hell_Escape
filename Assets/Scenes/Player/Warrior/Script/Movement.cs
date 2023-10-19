@@ -155,4 +155,9 @@ public class Movement : MonoBehaviour
             transform.localScale = localScale;
         }
     }
+
+    public bool canAttack()
+    {
+        return IsGrounded() && !IsWalled();
+    }    
 }
