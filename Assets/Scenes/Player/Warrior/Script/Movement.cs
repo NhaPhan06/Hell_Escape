@@ -5,10 +5,14 @@ using UnityEngine.Events;
 
 public class Movement : MonoBehaviour
 {
+    
     private float horizontal;
     public float speed = 8f;
+    private float originalSpeed;
+    private float originalJump;
     public float jumpingPower = 8f;
     private bool isFacingRight = true;
+    private bool isSpeedBoosted = false;
 
     private bool isWallSliding;
     private float wallSlidingSpeed = 2f;
@@ -160,4 +164,32 @@ public class Movement : MonoBehaviour
     {
         return IsGrounded() && !IsWalled();
     }    
+    
+    IEnumerator DisableAnimator()
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        animator.enabled = false;
+    }
+    
+    
+    public void ApplySpeedBoost(float duration, float multiplier)
+    {
+        if (!isSpeedBoosted)
+        {
+            originalSpeed = speed;
+            originalJump = jumpingPower;
+            jumpingPower += multiplier; 
+            speed *= multiplier;
+            isSpeedBoosted = true;
+            StartCoroutine(RestoreSpeed(duration));
+        }
+    }
+
+    private IEnumerator RestoreSpeed(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        speed = originalSpeed;
+        isSpeedBoosted = false;
+    }
+    
 }

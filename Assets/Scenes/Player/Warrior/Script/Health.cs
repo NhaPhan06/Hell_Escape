@@ -20,7 +20,8 @@ public class Health : MonoBehaviour
         currentHealth -= amount;
         if (currentHealth <= 0)
         {
-            //
+            animator.SetTrigger("Dead");
+            DisableAnimator();
         }
     }
 
@@ -32,4 +33,11 @@ public class Health : MonoBehaviour
             currentHealth = maxHealth;
         }
     }
+    
+    IEnumerator DisableAnimator()
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        animator.enabled = false;
+    }
+    
 }
