@@ -176,10 +176,8 @@ public class Movement : MonoBehaviour
     {
         if (!isSpeedBoosted)
         {
-            originalSpeed = speed;
             originalJump = jumpingPower;
             jumpingPower += multiplier; 
-            speed *= multiplier;
             isSpeedBoosted = true;
             StartCoroutine(RestoreSpeed(duration));
         }
@@ -190,6 +188,14 @@ public class Movement : MonoBehaviour
         yield return new WaitForSeconds(duration);
         speed = originalSpeed;
         isSpeedBoosted = false;
+    }
+    
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Monster"))
+        {
+            warrior.TakeDamge(1f);
+        }
     }
     
 }

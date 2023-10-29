@@ -19,7 +19,6 @@ public class Speed : MonoBehaviour
                 audioSource.Play();
                 playerController.ApplySpeedBoost(boostDuration, boostMultiplier);
             }
-
             // Xóa item sau khi nhân vật chạm vào
             Destroy(gameObject);
         }

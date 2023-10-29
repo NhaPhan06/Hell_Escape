@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,11 @@ public class Attack : MonoBehaviour
     private Animator anim;
     private Movement movement;
     private float cooldownTimer = Mathf.Infinity;
+    public Transform point1;
+    public Transform point2;
+    public float attackRange1;
+    public float attackRange2;
+    public LayerMask enmylayer;
 
     private void Awake()
     {
@@ -27,9 +33,6 @@ public class Attack : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.K) && cooldownTimer > attackCooldown && movement.canAttack())
         {
             Skill2();
-        }else if (Input.GetKeyDown(KeyCode.L) && cooldownTimer > attackCooldown && movement.canAttack())
-        {
-            Skill3();
         }
         cooldownTimer += Time.deltaTime;
     }
@@ -38,26 +41,37 @@ public class Attack : MonoBehaviour
     {
         anim.SetTrigger("skill1");
         cooldownTimer = 0;
+        Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(point1.position, attackRange1, enmylayer);
+        
+        foreach (Collider2D enemy in hitEnemy)
+        {
+            enemy.GetComponent<monsterMovement>().TakeDame(6f);
+        }
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (point1 != null)
+        {
+            Gizmos.DrawWireSphere(point1.position, attackRange1);
+        }
+        if (point2 != null)
+        {
+            Gizmos.DrawWireSphere(point2.position, attackRange2);
+        }
+        return;
+    }
+
     private void Skill2()
     {
         anim.SetTrigger("skill2");
         cooldownTimer = 0;
-    }
-    private void Skill3()
-    {
-        anim.SetTrigger("skill3");
-        cooldownTimer = 0;
-        fireballs[FindFireball()].transform.position = firePoint.position;
-        fireballs[FindFireball()].GetComponent<FireBall>().SetDirection(Mathf.Sign(transform.localScale.x));
-    }
-    private int FindFireball()
-    {
-        for (int i = 0; i < fireballs.Length; i++)
+        Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(point2.position, attackRange2, enmylayer);
+        
+        foreach (Collider2D enemy in hitEnemy)
         {
-            if (!fireballs[i].activeInHierarchy)
-                return i;
+            enemy.GetComponent<monsterMovement>().TakeDame(5f);
         }
-        return 0;
     }
+
 }

@@ -22,25 +22,21 @@ public class Fill : MonoBehaviour
     {
         if (slider.value <= slider.minValue)
         {
-            Debug.Log("1" + slider.value);
             fillImage.enabled = false;
         }
 
         if (slider.value > slider.minValue && !fillImage.enabled)
         {
-            Debug.Log("2" +slider.value);
             fillImage.enabled = true;
         }
 
         float fillValue = warrior.currentHealth / warrior.maxHealth;
         if (fillValue <= slider.maxValue / 3)
         {
-            Debug.Log("3" +slider.value);
             fillImage.color = Color.red;
         }
         else if (fillValue > slider.maxValue /3)
         {
-            Debug.Log("4" +slider.value);
             fillImage.color = Color.green;
         }
 
