@@ -5,7 +5,7 @@ using UnityEngine;
 public class movement : MonoBehaviour
 {
     private float horizontal;
-    private float speed = 8f;
+    [SerializeField] private float speed = 8f;
     private float jumpingPower = 16f;
     private bool isFacingRight = true;
 
