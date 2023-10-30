@@ -9,6 +9,8 @@ public class Attack : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject[] fireballs;
 
+    
+
     private Animator anim;
     private Movement movement;
     private float cooldownTimer = Mathf.Infinity;
@@ -17,11 +19,13 @@ public class Attack : MonoBehaviour
     public float attackRange1;
     public float attackRange2;
     public LayerMask enmylayer;
+    AudioManager audioManager;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         movement = GetComponent<Movement>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Update()
@@ -39,6 +43,7 @@ public class Attack : MonoBehaviour
 
     private void Skill1()
     {
+        audioManager.PlaySFX(audioManager.chieu1);
         anim.SetTrigger("skill1");
         cooldownTimer = 0;
         Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(point1.position, attackRange1, enmylayer);
@@ -64,6 +69,7 @@ public class Attack : MonoBehaviour
 
     private void Skill2()
     {
+        audioManager.PlaySFX(audioManager.chieu2);
         anim.SetTrigger("skill2");
         cooldownTimer = 0;
         Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(point2.position, attackRange2, enmylayer);
