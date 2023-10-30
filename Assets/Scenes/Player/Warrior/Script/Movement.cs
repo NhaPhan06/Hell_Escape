@@ -8,7 +8,6 @@ public class Movement : MonoBehaviour
     
     private float horizontal;
     public float speed = 8f;
-    private float originalSpeed;
     private float originalJump;
     public float jumpingPower = 8f;
     private bool isFacingRight = true;
@@ -44,7 +43,20 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         animator.SetBool("jump", false);
-        horizontal = Input.GetAxisRaw("Horizontal");
+        horizontal = 0f; // Initialize horizontal movement to 0
+
+        // Check for movement keys
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        {
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                horizontal = -1f; // Move left
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                horizontal = 1f; // Move right
+            }
+        }
 
         if (IsTrap())
         {
@@ -179,14 +191,14 @@ public class Movement : MonoBehaviour
             originalJump = jumpingPower;
             jumpingPower += multiplier; 
             isSpeedBoosted = true;
-            StartCoroutine(RestoreSpeed(duration));
+            StartCoroutine(RestoreJump(duration));
         }
     }
 
-    private IEnumerator RestoreSpeed(float duration)
+    private IEnumerator RestoreJump(float duration)
     {
         yield return new WaitForSeconds(duration);
-        speed = originalSpeed;
+        jumpingPower = originalJump;
         isSpeedBoosted = false;
     }
     

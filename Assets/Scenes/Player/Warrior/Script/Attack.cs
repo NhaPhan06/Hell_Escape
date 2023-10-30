@@ -30,11 +30,11 @@ public class Attack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) && cooldownTimer > attackCooldown && movement.canAttack())
+        if (Input.GetKeyDown(KeyCode.A) && cooldownTimer > attackCooldown && movement.canAttack())
         {
             Skill1();
         }
-        else if (Input.GetKeyDown(KeyCode.K) && cooldownTimer > attackCooldown && movement.canAttack())
+        else if (Input.GetKeyDown(KeyCode.S) && cooldownTimer > attackCooldown && movement.canAttack())
         {
             Skill2();
         }

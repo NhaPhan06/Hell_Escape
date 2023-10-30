@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Speed : MonoBehaviour
 {
-    public float boostDuration = 5f; // Thời gian tăng tốc tạm thời
+    public float boostDuration = 10f; // Thời gian tăng tốc tạm thời
     public float boostMultiplier = 2f; // Tốc độ tăng gấp đôi
     [SerializeField] private AudioSource audioSource;
     private void OnTriggerEnter2D(Collider2D other)

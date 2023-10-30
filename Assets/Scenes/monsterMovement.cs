@@ -52,7 +52,7 @@ public class monsterMovement : MonoBehaviour
         Flip();
 
         // Check if player is moving
-        if (Input.GetAxisRaw("Horizontal") != 0f)
+        if (Input.GetAxisRaw("Debug Horizontal") != 0f)
         {
             isPlayerMoving = true;
         }

@@ -28,7 +28,6 @@ public class potion : MonoBehaviour
                 playerHealth.Heal(20f);
             }
             Destroy(gameObject);
-            
         }
     }
 }
